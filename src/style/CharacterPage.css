@@ -1,0 +1,38 @@
+.right_side_character {
+    width: 100%;
+
+}
+
+.left_side_character {
+    margin-top: 50px;
+    background-color: chartreuse;
+    border: solid black 1px;
+    font-family: 'Press Start 2P', cursive;
+    padding: 5px;
+    height: 320px;
+    text-align: center;
+}
+
+.character_sheet {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.card{
+    margin-bottom:20px;
+}
+
+.save_button_div {
+    padding-left: 50px;
+}
+
+.save_button {
+    margin-right: 15px;
+}
+
+.stat_buttons {
+    max-height: fit-content;
+    padding: 5px;
+    border: none;
+}

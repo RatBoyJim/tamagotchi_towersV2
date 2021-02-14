@@ -1,6 +1,7 @@
 import React from "react";
+import loadingGif from "../gifs/other/loading.gif";
 const loadingImg =
-  "../gifs/other/loading.gif";
+  loadingGif;
 
 const Loading = () => (
   <div className="spinner">

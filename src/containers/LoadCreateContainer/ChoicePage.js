@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "./../../components/loading"
 
 const ChoicePage = ({unsetSelectedCharacter, userDataLoaded}) => {
 
@@ -58,4 +59,6 @@ const ChoicePage = ({unsetSelectedCharacter, userDataLoaded}) => {
   </div>
   )};
 
-export default ChoicePage;
+  export default withAuthenticationRequired(ChoicePage, {
+    onRedirecting: () => <Loading />,
+  });

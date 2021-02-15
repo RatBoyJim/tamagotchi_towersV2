@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import ProtectedRoute from "./auth/protected-route";
 import Loading from "./components/loading";
 import NavBar from "./containers/LandingPageContainer/NavBar";
 import LandingPage from "./containers/LandingPageContainer/LandingPage";

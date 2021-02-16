@@ -13,9 +13,9 @@ const ChoicePage = ({unsetSelectedCharacter, userDataLoaded}) => {
   }, [])
 
 
-  if(userDataLoaded===false){
-    return <p>Loading....</p>
-  }
+  // if(userDataLoaded===false){
+  //   return <p>Loading....</p>
+  // }
   
     
   

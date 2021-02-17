@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 
-const DisplayAllCharacters = ({animal}) => {
+const DisplayAllCharacters = ({userAnimal}) => {
   
   
 
     return(
         <div>
-            <h3>{animal.animalName}</h3>
+            <h3>{userAnimal.animalName}</h3>
         </div>
     )
   };

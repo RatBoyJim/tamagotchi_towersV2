@@ -6,13 +6,9 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 
 
-const Character = ({currentCharacter, increaseStat, currentImage, loaded, setLoggedInUsername, setLoggedInPassword, setUserData, setCurrentCharacter, setLoggedIn, setHasSelectedCharacter, setLoaded, setUserDataLoaded, setAnimalDataLoaded, setHardDifficulty, getAllUserData}) => {
+const Character = ({currentCharacter, increaseStat, currentImage, setUserData, setCurrentCharacter, setHasSelectedCharacter, setLoaded, setHardDifficulty}) => {
 
     const { getAccessTokenSilently } = useAuth0();
-
-    // if(loaded === false){
-    //   return <p>Loading...</p>
-    // }
 
     const setHard = () => {
       // Get the checkbox
@@ -48,16 +44,9 @@ const Character = ({currentCharacter, increaseStat, currentImage, loaded, setLog
           )
       };
       return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
-      .then(setLoggedInUsername())
-      .then(setLoggedInPassword())
       .then(setUserData([]))
       .then(setCurrentCharacter({}))
-      .then(setLoggedIn(false))
       .then(setHasSelectedCharacter(false))
-      .then(setLoaded(false))
-      .then(setUserDataLoaded(false))
-      .then(setAnimalDataLoaded(false))
-      .then(getAllUserData())
     };
 
     const saveProgress = async (data) => {

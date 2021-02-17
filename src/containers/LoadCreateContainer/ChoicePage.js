@@ -3,18 +3,29 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-ro
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./../../components/loading"
 
-const ChoicePage = ({unsetSelectedCharacter, userDataLoaded}) => {
+const ChoicePage = ({unsetSelectedCharacter, userDataLoaded, setUserData, setUserDataLoaded}) => {
 
   const { user } = useAuth0();
   const { name, picture, email } = user;
 
   useEffect(() => {
     unsetSelectedCharacter();
+    getUserData();
   }, [])
+
+  const getUserData = () => {
+    console.log("getting user data");
+    console.log("NAME IS " + email)
+    return fetch(`http://localhost:8080/api/users?username=${email}`)
+    .then(res => res.json())
+    .then(data => setUserData(data))
+    .then(setUserDataLoaded(true))
+    
+  }
 
 
   // if(userDataLoaded===false){
-  //   return <p>Loading....</p>
+    // return <Loading />
   // }
   
     

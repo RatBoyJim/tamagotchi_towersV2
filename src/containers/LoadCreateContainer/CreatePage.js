@@ -25,8 +25,6 @@ const CreatePage = ({allAnimals, userData, setHasSelectedCharacter, getUserData,
   const handleSubmit = (event) => {
     event.preventDefault();
     saveNewAnimal(formData)
-    getUserData()
-    getAllAnimalData()
   }
 
   
@@ -80,10 +78,6 @@ const saveNewAnimal = async (data) => {
   };
   return await fetch('http://localhost:8080/api/animals', requestOptions)
   .then(setHasSelectedCharacter(true))
-  .then(() => setLoaded(true))
-  .then(getUserData())
-  
-  
 }
 
 if(userDataLoaded === false){
@@ -118,6 +112,5 @@ if(userDataLoaded === false){
     </>
       )
 };
-// button type="button" onClick={() => selectCurrentCharacter(animal.id)}
 
 export default CreatePage;

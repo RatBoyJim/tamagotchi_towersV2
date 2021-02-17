@@ -2,49 +2,29 @@ import React, {useEffect, useState} from "react";
 import DisplayAllCharacters from '../../components/LoadCreateComponents/DisplayAllCharacters'
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
 
-const LoadPage = ({userAnimals, selectCurrentCharacter, getUserData, getAllAnimalData, setLoaded, loaded, animalDataLoaded}) => {
+const LoadPage = ({selectCurrentCharacter, userData}) => {
 
-
-  useEffect(() => {
-    getUserData()
-    setLoaded(true)
-  }, [])
-
-  useEffect(() => {
-    getAllAnimalData()
-  }, [])
-
-  if(!userAnimals){
+  if(!userData[0].animals){
     return (
       <h1>You don't have any animals yet!</h1>
     )
   }
 
-  if (loaded === false){
-      return(
-        <img src="../src/gifs/loading.gif" alt=""/>
-      )
-    }
 
-    if(animalDataLoaded === false){
-      return <p>Loading....</p>
-    }
-
-
-  const characters = userAnimals.map((animal) => {
+  const characters = userData[0].animals.map((userAnimal) => {
     return (
-      // <div>
-      <div className="animal_container"><div key={animal.id}>
-      <DisplayAllCharacters animal={animal} />
+      <div>
+      <div className="animal_container"><div key={userAnimal.id}>
+      <DisplayAllCharacters userAnimal={userAnimal} />
       <Link  from="/loadpage" to="/character" >
-          <button className="look_after_button" type="button" onClick={() => selectCurrentCharacter(animal.id)}>
+          <button className="look_after_button" type="button" onClick={() => selectCurrentCharacter(userAnimal.id)}>
               <h6>Look after your pet</h6>
           </button>
       </Link>
       </div>
-      <div><img src={animal.speak} alt="animal pic" width="200"/>
+      <div><img src={userAnimal.speak} alt="animal pic" width="200"/>
     </div></div>
-    // </div>
+    </div>
     )
   })
 

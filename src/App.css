@@ -23,6 +23,10 @@ ul {
   list-style-type: none;
 }
 
+#userPic {
+  margin-top: 20px;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;

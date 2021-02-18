@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "./components/loading";
 import NavBar from "./containers/LandingPageContainer/NavBar";
@@ -47,13 +47,25 @@ const App = ()=> {
 
   const getUserData = async () => {
     if (user){
-      const { email } = user;
+      const { email, picture } = user;
       console.log("getting user data");
-      console.log("NAME IS " + user.email)
+      console.log("NAME IS " + email)
       return await fetch(`http://localhost:8080/api/users?username=${email}`)
       .then(res => res.json())
       .then(data => setUserData(data))
-      .then(() => setUserLoggedIn(true));
+      .then(() => setUserLoggedIn(true))
+      .then(() => createProfilePic(picture));
+    }
+  }
+
+  const createProfilePic = (picture) => {
+    if(!document.getElementById("userPic")){
+      const img = new Image();
+      img.src = picture;
+      img.height = 50
+      img.width = 50
+      img.id = "userPic"
+      document.getElementById("header").appendChild(img);
     }
   }
 
@@ -172,7 +184,7 @@ const App = ()=> {
   return (
     <Router>
       <>
-        <header>
+        <header id="header">
           <h1 id="title">Tamagotchi Towers</h1>
           <NavBar id="navbar"/>
         </header>

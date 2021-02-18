@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-ro
 
 const LoadPage = ({selectCurrentCharacter, userData}) => {
 
+
   if(!userData[0].animals){
     return (
       <h1>You don't have any animals yet!</h1>

@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import ProtectedRoute from "./auth/protected-route";
 import Loading from "./components/loading";
 import NavBar from "./containers/LandingPageContainer/NavBar";
 import LandingPage from "./containers/LandingPageContainer/LandingPage";
@@ -21,7 +20,6 @@ import "./style/CreatePage.css"
 import "./style/CharacterPage.css"
 import "./style/ChoicePage.css"
 import "./style/LoadPage.css"
-import SaveForm from "./components/LoadCreateComponents/SaveForm";
 
 
 
@@ -33,10 +31,9 @@ const App = ()=> {
   const [intervalId, setIntervalId] = useState(null);
   const [hasSelectedCharacter, setHasSelectedCharacter] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
-  const [userDataLoaded, setUserDataLoaded] = useState(false);
   const [hardDifficulty, setHardDifficulty] = useState(false);
   const [existingUserLoggedIn, setExistingUserLoggedIn] = useState(false);
-  const [newUserLoggedIn, setNewUserLoggedIn] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const { user } = useAuth0();
   const { isAuthenticated } = useAuth0();
 
@@ -49,6 +46,23 @@ const App = ()=> {
     {animal: "UNICORN", image: [unicornRainbow]},
     {animal: "PENGUIN", image: [penguinHeart]}
   ]
+
+
+  const getUserData = async () => {
+    if (user){
+      const { email } = user;
+      console.log("getting user data");
+      console.log("NAME IS " + user.email)
+      return await fetch(`http://localhost:8080/api/users?username=${email}`)
+      .then(res => res.json())
+      .then(data => setUserData(data))
+      .then(() => setUserLoggedIn(true));
+    }
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, [isAuthenticated])
 
   const speed = () => {
     if (hardDifficulty === true) {
@@ -166,8 +180,8 @@ const App = ()=> {
           <NavBar id="navbar"/>
         </header>
         <Switch>
-        <Route exact path="/" render={() => isAuthenticated? <Redirect to= "/choicepage" /> : <LandingPage ></LandingPage>} />
-        <Route path="/choicepage" render={() => <ChoicePage unsetSelectedCharacter={unsetSelectedCharacter} userDataLoaded={userDataLoaded} setUserData={setUserData} setUserDataLoaded={setUserDataLoaded} />}/>
+        <Route exact path="/" render={() => userLoggedIn? <Redirect to= "/choicepage" /> : <LandingPage ></LandingPage>} />
+        <Route path="/choicepage" render={() => <ChoicePage unsetSelectedCharacter={unsetSelectedCharacter} setUserData={setUserData} userData={userData} />}/>
         
         {/* <Route path="/newuser" render={() => newUserLoggedIn? <Redirect to= "/createpage" /> :<SaveForm logInNewUser={(userDeets) => logInNewUser(userDeets)} />}/> */}
        

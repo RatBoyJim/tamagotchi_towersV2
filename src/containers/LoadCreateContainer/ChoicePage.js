@@ -3,33 +3,66 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-ro
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "./../../components/loading"
 
-const ChoicePage = ({unsetSelectedCharacter, userDataLoaded, setUserData, setUserDataLoaded}) => {
+const ChoicePage = ({unsetSelectedCharacter, setUserData, userData}) => {
 
   const { user } = useAuth0();
   const { name, picture, email } = user;
+  const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     unsetSelectedCharacter();
-    getUserData();
+    checkIfNewUser();
   }, [])
 
-  const getUserData = () => {
+
+  const getUserData = async () => {
     console.log("getting user data");
     console.log("NAME IS " + email)
-    return fetch(`http://localhost:8080/api/users?username=${email}`)
+    return await fetch(`http://localhost:8080/api/users?username=${email}`)
     .then(res => res.json())
     .then(data => setUserData(data))
-    .then(setUserDataLoaded(true))
-    
+    .then(() => console.log("user data gotten"))
+  }
+
+  const callApi = async () => {
+
+    const token = await getAccessTokenSilently();
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`
+        },
+        data: {
+            grant_type: 'client_credentials',
+            client_id: 'h4QURbaQAF10gmmAwXE6fje3N4ZTchki',
+            client_secret: 'bpXbKh0yAu5BD1UvcSZLxdmBsy8oa3y_dEE_w3X3aZEEwkDq6CH6-4sLmvDHAxV0',
+            audience: 'http://localhost:8080/api'
+        },
+        body: JSON.stringify({ 
+            userName: email,
+            password: "not used",
+            imageURL: "fakeImgUrl",
+            animals: []
+            })
+        };
+        return await fetch('http://localhost:8080/api/users', requestOptions)
+        .then(() => getUserData())
+    }
+
+  const checkIfNewUser = () => {
+    if (userData[0]) {
+      console.log("existing user");
+      getUserData();
+    } else {
+      console.log("saving new user");
+      callApi();
+    }
   }
 
 
-  // if(userDataLoaded===false){
-    // return <Loading />
-  // }
-  
-    
-  
+ 
 
   return (
   <div className="choice_page_div">

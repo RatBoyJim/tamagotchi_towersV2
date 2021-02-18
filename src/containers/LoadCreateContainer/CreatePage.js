@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../../components/loading"
 
 const CreatePage = ({allAnimals, userData, setHasSelectedCharacter, getUserData, setLoaded, userDataLoaded, getAllAnimalData}) => {
 
   const { getAccessTokenSilently } = useAuth0();
+
+  // useEffect(() => {
+  //   if(!userData[0]) {
+  //     return <Loading></Loading>
+  //   }
+  // }, [])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -77,14 +84,8 @@ const saveNewAnimal = async (data) => {
       })
   };
   return await fetch('http://localhost:8080/api/animals', requestOptions)
-  .then(setHasSelectedCharacter(true))
+  .then(() => setHasSelectedCharacter(true))
 }
-
-if(userDataLoaded === false){
-  return <p>Loading....</p>
-}
-
-  
   
 
   return(

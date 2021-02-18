@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import StatBar from "../../components/CharacterComponents/StatBar";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../../components/loading"
 
 
 
@@ -44,36 +45,35 @@ const Character = ({currentCharacter, increaseStat, currentImage, setUserData, s
           )
       };
       return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
-      .then(setUserData([]))
-      .then(setCurrentCharacter({}))
-      .then(setHasSelectedCharacter(false))
+      .then(() => setCurrentCharacter({}))
+      .then(() => setHasSelectedCharacter(false))
     };
 
-    const saveProgress = async (data) => {
+    // const saveProgress = async (data) => {
 
-      const token = await getAccessTokenSilently();
+    //   const token = await getAccessTokenSilently();
 
-      const requestOptions = {
+    //   const requestOptions = {
           
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${token}`
-            },
-            data: {
-                grant_type: 'client_credentials',
-                client_id: 'h4QURbaQAF10gmmAwXE6fje3N4ZTchki',
-                client_secret: 'bpXbKh0yAu5BD1UvcSZLxdmBsy8oa3y_dEE_w3X3aZEEwkDq6CH6-4sLmvDHAxV0',
-                audience: 'http://localhost:8080/api'
-            },
-          body: JSON.stringify(
-            data
-          )
-      };
-      return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
-      .then(setCurrentCharacter({}))
-      .then(setHasSelectedCharacter(false))
-    };
+    //       method: 'PUT',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         authorization: `Bearer ${token}`
+    //         },
+    //         data: {
+    //             grant_type: 'client_credentials',
+    //             client_id: 'h4QURbaQAF10gmmAwXE6fje3N4ZTchki',
+    //             client_secret: 'bpXbKh0yAu5BD1UvcSZLxdmBsy8oa3y_dEE_w3X3aZEEwkDq6CH6-4sLmvDHAxV0',
+    //             audience: 'http://localhost:8080/api'
+    //         },
+    //       body: JSON.stringify(
+    //         data
+    //       )
+    //   };
+    //   return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
+    //   .then(() => setCurrentCharacter({}))
+    //   .then(() => setHasSelectedCharacter(false))
+    // };
 
     return(
         <div className="character_sheet">
@@ -108,14 +108,14 @@ const Character = ({currentCharacter, increaseStat, currentImage, setUserData, s
           <div className="save_button_div">
           <Link  from="/character" to="/" >
           <button className="save_button" type="button" onClick={() => logout(currentCharacter)}>
-              Save and log out
+              Save and return to load/create screen
           </button>
           </Link>
-          <Link  from="/character" to="/choicepage" >
+          {/* <Link  from="/character" to="/choicepage" >
           <button className="save_button" type="button" onClick={() => saveProgress(currentCharacter)}>
               Save progress!
           </button>
-          </Link>
+          </Link> */}
           </div>
           </div>
         
@@ -123,4 +123,6 @@ const Character = ({currentCharacter, increaseStat, currentImage, setUserData, s
     )
   };
   
-  export default Character;
+  export default withAuthenticationRequired(Character, {
+    onRedirecting: () => <Loading />,
+  });

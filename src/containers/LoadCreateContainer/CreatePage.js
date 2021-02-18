@@ -7,11 +7,6 @@ const CreatePage = ({allAnimals, userData, setHasSelectedCharacter, getUserData,
 
   const { getAccessTokenSilently } = useAuth0();
 
-  // useEffect(() => {
-  //   if(!userData[0]) {
-  //     return <Loading></Loading>
-  //   }
-  // }, [])
 
   const [formData, setFormData] = useState({
     name: '',
@@ -114,4 +109,6 @@ const saveNewAnimal = async (data) => {
       )
 };
 
-export default CreatePage;
+export default withAuthenticationRequired(CreatePage, {
+  onRedirecting: () => <Loading />,
+});

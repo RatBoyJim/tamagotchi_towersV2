@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import DisplayAllCharacters from '../../components/LoadCreateComponents/DisplayAllCharacters'
 import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Loading from "../../components/loading"
 
 const LoadPage = ({selectCurrentCharacter, userData}) => {
 
@@ -41,4 +43,6 @@ const LoadPage = ({selectCurrentCharacter, userData}) => {
   )
 };
 
-export default LoadPage;
+export default withAuthenticationRequired(LoadPage, {
+  onRedirecting: () => <Loading />,
+});

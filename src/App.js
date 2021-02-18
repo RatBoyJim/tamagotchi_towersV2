@@ -22,8 +22,6 @@ import "./style/ChoicePage.css"
 import "./style/LoadPage.css"
 
 
-
-
 const App = ()=> {
 
   const [userData, setUserData] = useState([]);
@@ -32,7 +30,6 @@ const App = ()=> {
   const [hasSelectedCharacter, setHasSelectedCharacter] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
   const [hardDifficulty, setHardDifficulty] = useState(false);
-  const [existingUserLoggedIn, setExistingUserLoggedIn] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const { user } = useAuth0();
   const { isAuthenticated } = useAuth0();
@@ -181,11 +178,10 @@ const App = ()=> {
         </header>
         <Switch>
         <Route exact path="/" render={() => userLoggedIn? <Redirect to= "/choicepage" /> : <LandingPage ></LandingPage>} />
+
         <Route path="/choicepage" render={() => <ChoicePage unsetSelectedCharacter={unsetSelectedCharacter} setUserData={setUserData} userData={userData} />}/>
-        
-        {/* <Route path="/newuser" render={() => newUserLoggedIn? <Redirect to= "/createpage" /> :<SaveForm logInNewUser={(userDeets) => logInNewUser(userDeets)} />}/> */}
-       
-       <Route path="/createpage" render={() => hasSelectedCharacter? <Redirect to="/choicepage"/>: <CreatePage allAnimals={adoptableAnimals}
+    
+        <Route path="/createpage" render={() => hasSelectedCharacter? <Redirect to="/choicepage"/>: <CreatePage allAnimals={adoptableAnimals}
                     setCurrentCharacter={setCurrentCharacter} setHasSelectedCharacter={setHasSelectedCharacter} userData={userData}/>}/>
 
         <Route path="/loadpage"  render={() => <LoadPage userData = {userData} selectCurrentCharacter={selectCurrentCharacter}/>} />  

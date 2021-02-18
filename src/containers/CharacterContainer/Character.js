@@ -7,7 +7,7 @@ import Loading from "../../components/loading"
 
 
 
-const Character = ({currentCharacter, increaseStat, currentImage, setUserData, setCurrentCharacter, setHasSelectedCharacter, setLoaded, setHardDifficulty}) => {
+const Character = ({currentCharacter, increaseStat, currentImage, getUserData, setCurrentCharacter, setHasSelectedCharacter, setHardDifficulty}) => {
 
     const { getAccessTokenSilently } = useAuth0();
 
@@ -47,33 +47,9 @@ const Character = ({currentCharacter, increaseStat, currentImage, setUserData, s
       return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
       .then(() => setCurrentCharacter({}))
       .then(() => setHasSelectedCharacter(false))
+      .then(() => getUserData())
     };
 
-    // const saveProgress = async (data) => {
-
-    //   const token = await getAccessTokenSilently();
-
-    //   const requestOptions = {
-          
-    //       method: 'PUT',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         authorization: `Bearer ${token}`
-    //         },
-    //         data: {
-    //             grant_type: 'client_credentials',
-    //             client_id: 'h4QURbaQAF10gmmAwXE6fje3N4ZTchki',
-    //             client_secret: 'bpXbKh0yAu5BD1UvcSZLxdmBsy8oa3y_dEE_w3X3aZEEwkDq6CH6-4sLmvDHAxV0',
-    //             audience: 'http://localhost:8080/api'
-    //         },
-    //       body: JSON.stringify(
-    //         data
-    //       )
-    //   };
-    //   return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
-    //   .then(() => setCurrentCharacter({}))
-    //   .then(() => setHasSelectedCharacter(false))
-    // };
 
     return(
         <div className="character_sheet">
@@ -111,11 +87,6 @@ const Character = ({currentCharacter, increaseStat, currentImage, setUserData, s
               Save and return to load/create screen
           </button>
           </Link>
-          {/* <Link  from="/character" to="/choicepage" >
-          <button className="save_button" type="button" onClick={() => saveProgress(currentCharacter)}>
-              Save progress!
-          </button>
-          </Link> */}
           </div>
           </div>
         

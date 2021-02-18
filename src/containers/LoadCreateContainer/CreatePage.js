@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-ro
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Loading from "../../components/loading"
 
-const CreatePage = ({allAnimals, userData, setHasSelectedCharacter, getUserData, setLoaded, userDataLoaded, getAllAnimalData}) => {
+const CreatePage = ({allAnimals, userData, setHasSelectedCharacter}) => {
 
   const { getAccessTokenSilently } = useAuth0();
 

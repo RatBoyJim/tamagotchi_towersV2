@@ -186,7 +186,7 @@ const App = ()=> {
 
         <Route path="/loadpage"  render={() => <LoadPage userData = {userData} selectCurrentCharacter={selectCurrentCharacter}/>} />  
 
-        <Route path="/character" render={() => <Character currentCharacter={currentCharacter} currentImage={currentImage} increaseStat={increaseStat} setUserData={setUserData} setCurrentCharacter={setCurrentCharacter} setHasSelectedCharacter={setHasSelectedCharacter} setHardDifficulty={setHardDifficulty} />}/>
+        <Route path="/character" render={() => <Character currentCharacter={currentCharacter} currentImage={currentImage} increaseStat={increaseStat} getUserData={getUserData} setCurrentCharacter={setCurrentCharacter} setHasSelectedCharacter={setHasSelectedCharacter} setHardDifficulty={setHardDifficulty} />}/>
         
         </Switch>
       </>

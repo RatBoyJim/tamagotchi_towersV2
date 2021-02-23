@@ -50,7 +50,7 @@ const App = ()=> {
       const { email, picture } = user;
       console.log("getting user data");
       console.log("NAME IS " + email)
-      return await fetch(`http://localhost:8080/api/users?username=${email}`)
+      return await fetch(`https://mysterious-dawn-00518.herokuapp.com/api/users?username=${email}`)
       .then(res => res.json())
       .then(data => setUserData(data))
       .then(() => setUserLoggedIn(true))

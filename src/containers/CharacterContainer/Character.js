@@ -44,7 +44,7 @@ const Character = ({currentCharacter, increaseStat, currentImage, getUserData, s
             data
           )
       };
-      return await fetch(`http://localhost:8080/api/animals/${data.id}`, requestOptions)
+      return await fetch(`https://mysterious-dawn-00518.herokuapp.com/api/animals/${data.id}`, requestOptions)
       .then(() => setCurrentCharacter({}))
       .then(() => setHasSelectedCharacter(false))
       .then(() => getUserData())

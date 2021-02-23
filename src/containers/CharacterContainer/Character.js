@@ -13,14 +13,14 @@ const Character = ({currentCharacter, increaseStat, currentImage, getUserData, s
 
     const setHard = () => {
       // Get the checkbox
-  var checkBox = document.getElementById("myCheck");
+    var checkBox = document.getElementById("myCheck");
 
-  // If the checkbox is checked, display the output text
-  if (checkBox.checked == true){
-    setHardDifficulty(true)
-  } else {
-    setHardDifficulty(false)
-  }
+    // If the checkbox is checked, display the output text
+    if (checkBox.checked == true){
+      setHardDifficulty(true)
+    } else {
+      setHardDifficulty(false)
+    }
     }
 
     const logout = async (data) => {

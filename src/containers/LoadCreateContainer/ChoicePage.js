@@ -18,7 +18,7 @@ const ChoicePage = ({unsetSelectedCharacter, setUserData, userData}) => {
   const getUserData = async () => {
     console.log("getting user data");
     console.log("NAME IS " + email)
-    return await fetch(`http://localhost:8080/api/users?username=${email}`)
+    return await fetch(`https://mysterious-dawn-00518.herokuapp.com/api/users?username=${email}`)
     .then(res => res.json())
     .then(data => setUserData(data))
     .then(() => console.log("user data gotten"))
@@ -47,7 +47,7 @@ const ChoicePage = ({unsetSelectedCharacter, setUserData, userData}) => {
             animals: []
             })
         };
-        return await fetch('http://localhost:8080/api/users', requestOptions)
+        return await fetch('https://mysterious-dawn-00518.herokuapp.com/api/users', requestOptions)
         .then(() => getUserData())
     }
 

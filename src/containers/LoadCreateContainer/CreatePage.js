@@ -78,7 +78,7 @@ const saveNewAnimal = async (data) => {
           imageURL: userData[0].imageURL}
       })
   };
-  return await fetch('http://localhost:8080/api/animals', requestOptions)
+  return await fetch('https://mysterious-dawn-00518.herokuapp.com/api/animals', requestOptions)
   .then(() => setHasSelectedCharacter(true))
 }
   
